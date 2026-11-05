@@ -1,0 +1,609 @@
+{
+    "name": "Escenario 1: recibe solicitudes, las guarda en Airtable y genera una respuesta con Gemini.",
+    "flow": [
+        {
+            "id": 1,
+            "module": "gateway:CustomWebHook",
+            "version": 1,
+            "parameters": {
+                "hook": 3026958,
+                "maxResults": 1
+            },
+            "mapper": {},
+            "metadata": {
+                "designer": {
+                    "x": -600,
+                    "y": 0
+                },
+                "setupValidation": {
+                    "version": 1,
+                    "configuration": "5d30b6e7f7b88683",
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    }
+                },
+                "restore": {
+                    "parameters": {
+                        "hook": {
+                            "data": {
+                                "editable": "true"
+                            },
+                            "label": "Cristal Azul - Solicitudes de clientes"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "hook",
+                        "type": "hook:gateway-webhook",
+                        "label": "Webhook",
+                        "required": true
+                    },
+                    {
+                        "name": "maxResults",
+                        "type": "number",
+                        "label": "Maximum number of results"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "email",
+                        "type": "text"
+                    },
+                    {
+                        "name": "detalle",
+                        "type": "text"
+                    },
+                    {
+                        "name": "nombre",
+                        "type": "text"
+                    },
+                    {
+                        "name": "ubicacion",
+                        "type": "text"
+                    },
+                    {
+                        "name": "servicio",
+                        "type": "text"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "module": "airtable:ActionCreateRecord",
+            "version": 3,
+            "parameters": {
+                "__IMTCONN__": 12162274
+            },
+            "mapper": {
+                "base": "appiiuDw3KiCGl5fN",
+                "table": "tblIcx0n4bGrgODyf",
+                "record": {
+                    "fldMajH4nCmWyqNoB": "{{1.email}}",
+                    "fldSVCgqzzTcfdH1G": "Pendiente",
+                    "fldWVoDKZzPWEUjOX": "{{1.nombre}}",
+                    "fldkzuPfEV0sXZwRH": "{{1.ubicacion}}",
+                    "fldrikAUjzpLltnLk": "{{1.servicio}}"
+                },
+                "typecast": false,
+                "useColumnId": false
+            },
+            "metadata": {
+                "designer": {
+                    "x": -300,
+                    "y": 0
+                },
+                "setupValidation": {
+                    "result": {
+                        "valid": true,
+                        "fields": []
+                    },
+                    "version": 1,
+                    "configuration": "f698f88b14a5682"
+                },
+                "restore": {
+                    "expect": {
+                        "base": {
+                            "label": "Cristal Azul - Gestión Inteligente de Clientes"
+                        },
+                        "table": {
+                            "label": "Solicitudes de clientes",
+                            "nested": [
+                                {
+                                    "name": "record",
+                                    "spec": [
+                                        {
+                                            "name": "fldWVoDKZzPWEUjOX",
+                                            "type": "text",
+                                            "label": "Nombre"
+                                        },
+                                        {
+                                            "name": "fldMajH4nCmWyqNoB",
+                                            "type": "text",
+                                            "label": "Email"
+                                        },
+                                        {
+                                            "name": "fldrikAUjzpLltnLk",
+                                            "type": "text",
+                                            "label": "Servicio"
+                                        },
+                                        {
+                                            "name": "fldkzuPfEV0sXZwRH",
+                                            "type": "text",
+                                            "label": "Ubicación"
+                                        },
+                                        {
+                                            "mode": "edit",
+                                            "name": "fldSVCgqzzTcfdH1G",
+                                            "type": "select",
+                                            "label": "Estado",
+                                            "dynamic": true,
+                                            "options": [
+                                                {
+                                                    "label": "Pendiente",
+                                                    "value": "Pendiente"
+                                                },
+                                                {
+                                                    "label": "Procesado por IA",
+                                                    "value": "Procesado por IA"
+                                                },
+                                                {
+                                                    "label": "Aprobado por Humano",
+                                                    "value": "Aprobado por Humano"
+                                                },
+                                                {
+                                                    "label": "Enviado al Cliente",
+                                                    "value": "Enviado al Cliente"
+                                                },
+                                                {
+                                                    "label": "Error",
+                                                    "value": "Error"
+                                                }
+                                            ],
+                                            "validate": false
+                                        },
+                                        {
+                                            "name": "fld3vYPE67l8MN7m6",
+                                            "type": "text",
+                                            "label": "Respuesta IA",
+                                            "multiline": true
+                                        }
+                                    ],
+                                    "type": "collection",
+                                    "label": "Record"
+                                }
+                            ]
+                        },
+                        "record": {
+                            "nested": {
+                                "fldSVCgqzzTcfdH1G": {
+                                    "mode": "chose",
+                                    "label": "Pendiente"
+                                }
+                            }
+                        },
+                        "typecast": {
+                            "mode": "chose"
+                        },
+                        "useColumnId": {
+                            "mode": "chose"
+                        }
+                    },
+                    "parameters": {
+                        "__IMTCONN__": {
+                            "data": {
+                                "scoped": "true",
+                                "connection": "airtable3"
+                            },
+                            "label": "Conexión OAuth de Airtable de Maxi (ID de usuario: usrKQMqoG8ZAulwly)"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "__IMTCONN__",
+                        "type": "account:airtable3,airtable2",
+                        "label": "Connection",
+                        "required": true
+                    }
+                ],
+                "expect": [
+                    {
+                        "name": "base",
+                        "type": "select",
+                        "label": "Base",
+                        "required": true
+                    },
+                    {
+                        "name": "typecast",
+                        "type": "boolean",
+                        "label": "Smart links",
+                        "required": true
+                    },
+                    {
+                        "name": "useColumnId",
+                        "type": "boolean",
+                        "label": "Use column ID",
+                        "required": true
+                    },
+                    {
+                        "name": "table",
+                        "type": "select",
+                        "label": "Table",
+                        "required": true
+                    },
+                    {
+                        "name": "record",
+                        "spec": [
+                            {
+                                "name": "fldWVoDKZzPWEUjOX",
+                                "type": "text",
+                                "label": "Nombre"
+                            },
+                            {
+                                "name": "fldMajH4nCmWyqNoB",
+                                "type": "text",
+                                "label": "Email"
+                            },
+                            {
+                                "name": "fldrikAUjzpLltnLk",
+                                "type": "text",
+                                "label": "Servicio"
+                            },
+                            {
+                                "name": "fldkzuPfEV0sXZwRH",
+                                "type": "text",
+                                "label": "Ubicación"
+                            },
+                            {
+                                "mode": "edit",
+                                "name": "fldSVCgqzzTcfdH1G",
+                                "type": "select",
+                                "label": "Estado"
+                            },
+                            {
+                                "name": "fld3vYPE67l8MN7m6",
+                                "type": "text",
+                                "label": "Respuesta IA"
+                            }
+                        ],
+                        "type": "collection",
+                        "label": "Record"
+                    }
+                ],
+                "interface": [
+                    {
+                        "name": "id",
+                        "type": "text",
+                        "label": "ID"
+                    },
+                    {
+                        "name": "createdTime",
+                        "type": "date",
+                        "label": "Created time"
+                    },
+                    {
+                        "name": "Nombre",
+                        "type": "text",
+                        "label": "Nombre"
+                    },
+                    {
+                        "name": "Email",
+                        "type": "text",
+                        "label": "Email"
+                    },
+                    {
+                        "name": "Servicio",
+                        "type": "text",
+                        "label": "Servicio"
+                    },
+                    {
+                        "name": "Ubicación",
+                        "type": "text",
+                        "label": "Ubicación"
+                    },
+                    {
+                        "name": "Estado",
+                        "type": "text",
+                        "label": "Estado"
+                    },
+                    {
+                        "name": "Respuesta IA",
+                        "type": "text",
+                        "label": "Respuesta IA",
+                        "multiline": true
+                    }
+                ]
+            }
+        },
+        {
+            "id": 22,
+            "module": "builtin:BasicRouter",
+            "version": 1,
+            "mapper": null,
+            "metadata": {
+                "designer": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            "routes": [
+                {
+                    "flow": [
+                        {
+                            "id": 7,
+                            "module": "gemini-ai:simpleTextPrompt",
+                            "version": 1,
+                            "parameters": {},
+                            "mapper": {
+                                "model": "gemini-2.5-flash",
+                                "textPrompt": "{{2.Nombre}}{{2.Servicio}}{{2.`Ubicación`}}{{1.detalle}}"
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 384,
+                                    "y": -9
+                                },
+                                "setupValidation": {
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    },
+                                    "version": 1,
+                                    "configuration": "cf37f33aeda5b77b"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "model": {
+                                            "label": "Géminis 2.5 FlashAplica razonamiento inteligente a tareas de datos rápidas al tiempo que garantiza tiempos de respuesta rápidos."
+                                        }
+                                    }
+                                },
+                                "expect": [
+                                    {
+                                        "name": "model",
+                                        "type": "select",
+                                        "label": "Model",
+                                        "required": true,
+                                        "validate": {
+                                            "enum": [
+                                                "gemini-2.5-flash",
+                                                "gemini-4-argon",
+                                                "gemini-3.8-flash",
+                                                "gemini-3.6-flash",
+                                                "gemini-3.1-pro-preview",
+                                                "gemini-3-flash-preview",
+                                                "gemini-2.5-pro"
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "name": "textPrompt",
+                                        "type": "text",
+                                        "label": "Text prompt",
+                                        "required": true
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "module": "airtable:ActionUpdateRecords",
+                            "version": 3,
+                            "parameters": {
+                                "__IMTCONN__": 12162274
+                            },
+                            "mapper": {
+                                "id": "{{2.id}}",
+                                "base": "appiiuDw3KiCGl5fN",
+                                "table": "tblIcx0n4bGrgODyf",
+                                "record": {
+                                    "fld3vYPE67l8MN7m6": "{{7.result}}",
+                                    "fldMajH4nCmWyqNoB": "{{2.Email}}",
+                                    "fldSVCgqzzTcfdH1G": "Procesado por IA",
+                                    "fldWVoDKZzPWEUjOX": "{{2.Nombre}}",
+                                    "fldkzuPfEV0sXZwRH": "{{2.`Ubicación`}}",
+                                    "fldrikAUjzpLltnLk": "{{2.Servicio}}"
+                                },
+                                "typecast": false,
+                                "useColumnId": false
+                            },
+                            "metadata": {
+                                "designer": {
+                                    "x": 706,
+                                    "y": -24,
+                                    "name": "ACTUALIZAR SOLICITUD - RESPUESTA IA"
+                                },
+                                "setupValidation": {
+                                    "result": {
+                                        "valid": true,
+                                        "fields": []
+                                    },
+                                    "version": 1,
+                                    "configuration": "81cc8a7a88cbd2fd"
+                                },
+                                "restore": {
+                                    "expect": {
+                                        "base": {
+                                            "label": "Cristal Azul - Gestión Inteligente de Clientes"
+                                        },
+                                        "table": {
+                                            "label": "Solicitudes de clientes"
+                                        },
+                                        "record": {
+                                            "nested": {
+                                                "fldSVCgqzzTcfdH1G": {
+                                                    "mode": "chose",
+                                                    "label": "Procesado por IA"
+                                                }
+                                            }
+                                        },
+                                        "typecast": {
+                                            "mode": "chose"
+                                        },
+                                        "useColumnId": {
+                                            "mode": "chose"
+                                        }
+                                    },
+                                    "parameters": {
+                                        "__IMTCONN__": {
+                                            "data": {
+                                                "scoped": "true",
+                                                "connection": "airtable3"
+                                            },
+                                            "label": "Conexión OAuth de Airtable de Maxi (ID de usuario: usrKQMqoG8ZAulwly)"
+                                        }
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "__IMTCONN__",
+                                        "type": "account:airtable3,airtable2",
+                                        "label": "Connection",
+                                        "required": true
+                                    }
+                                ],
+                                "expect": [
+                                    {
+                                        "name": "base",
+                                        "type": "select",
+                                        "label": "Base",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "typecast",
+                                        "type": "boolean",
+                                        "label": "Smart links",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "useColumnId",
+                                        "type": "boolean",
+                                        "label": "Use column ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "table",
+                                        "type": "select",
+                                        "label": "Table",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "Record ID",
+                                        "required": true
+                                    },
+                                    {
+                                        "name": "record",
+                                        "spec": [
+                                            {
+                                                "name": "fldWVoDKZzPWEUjOX",
+                                                "type": "text",
+                                                "label": "Nombre"
+                                            },
+                                            {
+                                                "name": "fldMajH4nCmWyqNoB",
+                                                "type": "text",
+                                                "label": "Email"
+                                            },
+                                            {
+                                                "name": "fldrikAUjzpLltnLk",
+                                                "type": "text",
+                                                "label": "Servicio"
+                                            },
+                                            {
+                                                "name": "fldkzuPfEV0sXZwRH",
+                                                "type": "text",
+                                                "label": "Ubicación"
+                                            },
+                                            {
+                                                "mode": "edit",
+                                                "name": "fldSVCgqzzTcfdH1G",
+                                                "type": "select",
+                                                "label": "Estado"
+                                            },
+                                            {
+                                                "name": "fld3vYPE67l8MN7m6",
+                                                "type": "text",
+                                                "label": "Respuesta IA"
+                                            }
+                                        ],
+                                        "type": "collection",
+                                        "label": "Record"
+                                    }
+                                ],
+                                "interface": [
+                                    {
+                                        "name": "id",
+                                        "type": "text",
+                                        "label": "ID"
+                                    },
+                                    {
+                                        "name": "createdTime",
+                                        "type": "date",
+                                        "label": "Created time"
+                                    },
+                                    {
+                                        "name": "Nombre",
+                                        "type": "text",
+                                        "label": "Nombre"
+                                    },
+                                    {
+                                        "name": "Email",
+                                        "type": "text",
+                                        "label": "Email"
+                                    },
+                                    {
+                                        "name": "Servicio",
+                                        "type": "text",
+                                        "label": "Servicio"
+                                    },
+                                    {
+                                        "name": "Ubicación",
+                                        "type": "text",
+                                        "label": "Ubicación"
+                                    },
+                                    {
+                                        "name": "Estado",
+                                        "type": "text",
+                                        "label": "Estado"
+                                    },
+                                    {
+                                        "name": "Respuesta IA",
+                                        "type": "text",
+                                        "label": "Respuesta IA",
+                                        "multiline": true
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "instant": true,
+        "version": 1,
+        "scenario": {
+            "roundtrips": 1,
+            "maxErrors": 3,
+            "autoCommit": true,
+            "autoCommitTriggerLast": true,
+            "sequential": false,
+            "slots": null,
+            "confidential": false,
+            "dataloss": false,
+            "dlq": false,
+            "freshVariables": false
+        },
+        "designer": {
+            "orphans": []
+        },
+        "zone": "us2.make.com",
+        "notes": []
+    }
+}
