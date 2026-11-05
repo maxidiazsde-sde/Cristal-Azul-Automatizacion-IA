@@ -29,3 +29,9 @@ El sistema utiliza Make, Airtable, Google Gemini AI y Gmail para recibir solicit
 ## Video demostrativo
 
 [Ver demostración del funcionamiento de Cristal Azul en YouTube](https://youtu.be/ddm7N-O3k3s)
+
+## Base de datos – Airtable
+
+[Consultar la base de datos de Cristal Azul](https://airtable.com/appiiuDw3KiCGl5fN/shr2OEpkZ88fOyY51)
+
+La base permite visualizar las solicitudes recibidas, los estados de procesamiento y las respuestas generadas por inteligencia artificial.
