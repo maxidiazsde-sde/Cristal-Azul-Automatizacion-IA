@@ -36,12 +36,12 @@ El sistema permite recibir solicitudes, almacenar información, generar respuest
 
 ### Escenario 2 – Aprobación humana y envío
 
-1. Make busca en Airtable las solicitudes aprobadas.
-2. Se identifican los registros con estado «Aprobado por Humano».
-3. Gmail envía la respuesta al correo del cliente.
-4. Airtable actualiza el estado del registro.
+1. Make busca en Airtable las solicitudes que tienen el estado «Aprobado por Humano».
+2. Se recuperan los datos del cliente y la respuesta generada por Gemini.
+3. Gmail envía automáticamente el correo electrónico al cliente.
+4. Airtable actualiza el estado del registro a «Enviado al Cliente».
 
-**Estado final:** Enviado al Cliente.
+**Resultado:** el cliente recibe una respuesta por correo electrónico luego de la aprobación humana.
 
 ## 5. Control humano
 
