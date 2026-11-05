@@ -1,37 +1,96 @@
-# Cristal-Azul-Automatizacion-IA
-Ecosistema de automatización con inteligencia artificial para la gestión de clientes de Cristal Azul.
-# Cristal Azul – Ecosistema de Automatización con IA
+# CRISTAL AZUL – Ecosistema de Automatización con Inteligencia Artificial
 
-## Descripción del proyecto
+## 1. Descripción del proyecto
 
-Cristal Azul es un proyecto de automatización inteligente orientado a la gestión de solicitudes de clientes para un servicio de limpieza de vidrios en altura.
+Cristal Azul es un ecosistema de automatización inteligente desarrollado para gestionar solicitudes de clientes de un servicio de limpieza de vidrios en altura.
 
-El sistema utiliza Make, Airtable, Google Gemini AI y Gmail para recibir solicitudes, generar respuestas automáticas asistidas por inteligencia artificial y permitir la aprobación humana antes del envío al cliente.
+El sistema permite recibir solicitudes, almacenar información, generar respuestas mediante inteligencia artificial y enviar comunicaciones por correo electrónico luego de una aprobación humana.
 
-## Tecnologías utilizadas
+## 2. Objetivos
 
-- **Make:** automatización y coordinación de los procesos.
-- **Airtable:** almacenamiento y gestión de solicitudes.
-- **Google Gemini AI:** generación de respuestas.
-- **Gmail:** comunicación por correo electrónico.
+- Automatizar la recepción de solicitudes.
+- Centralizar la información de los clientes.
+- Utilizar inteligencia artificial para generar respuestas.
+- Incorporar supervisión y aprobación humana.
+- Automatizar el envío de correos electrónicos.
 
-## Arquitectura del sistema
+## 3. Tecnologías utilizadas
+
+- **Make:** orquestación de los procesos.
+- **Airtable:** base de datos y gestión de solicitudes.
+- **Google Gemini AI:** generación de respuestas inteligentes.
+- **Gmail:** envío de respuestas a los clientes.
+- **GitHub:** documentación y almacenamiento de archivos del proyecto.
+
+## 4. Arquitectura del sistema
 
 ### Escenario 1 – Recepción y procesamiento con IA
 
-1. Recepción de datos mediante Webhook.
-2. Creación de un registro en Airtable.
-3. Procesamiento de la solicitud mediante Google Gemini AI.
-4. Actualización del registro con la respuesta generada.
-5. Estado actualizado a «Procesado por IA».
+1. Un cliente envía una solicitud mediante un Webhook.
+2. Make recibe los datos.
+3. Airtable crea un registro con la información recibida.
+4. Google Gemini AI analiza la solicitud y genera una respuesta.
+5. Airtable actualiza el registro con la respuesta generada y el estado correspondiente.
+
+**Estado final:** Procesado por IA.
 
 ### Escenario 2 – Aprobación humana y envío
-## Video demostrativo
 
-[Ver demostración del funcionamiento de Cristal Azul en YouTube](https://youtu.be/ddm7N-O3k3s)
+1. Make busca en Airtable las solicitudes aprobadas.
+2. Se identifican los registros con estado «Aprobado por Humano».
+3. Gmail envía la respuesta al correo del cliente.
+4. Airtable actualiza el estado del registro.
 
-## Base de datos – Airtable
+**Estado final:** Enviado al Cliente.
+
+## 5. Control humano
+
+El sistema incorpora una instancia de supervisión humana. La respuesta generada por inteligencia artificial debe ser revisada antes de habilitar el envío al cliente.
+
+La aprobación se realiza mediante la actualización manual del estado en Airtable.
+
+## 6. Base de datos
+
+La base de Airtable permite consultar y administrar las solicitudes recibidas.
 
 [Consultar la base de datos de Cristal Azul](https://airtable.com/appiiuDw3KiCGl5fN/shr2OEpkZ88fOyY51)
 
-La base permite visualizar las solicitudes recibidas, los estados de procesamiento y las respuestas generadas por inteligencia artificial.
+## 7. Evidencias y documentación
+
+- [Arquitectura del proyecto](docs/Arquitectura_Cristal_Azul.pdf)
+- [Escenario 1 – Recepción y procesamiento IA](make/Escenario_1_Recepcion_IA.json)
+- [Escenario 2 – Aprobación y envío](make/Escenario_2_Aprobacion_Envio.json)
+- [Capturas de evidencia](evidencias/)
+
+## 8. Video demostrativo
+
+[Ver demostración del funcionamiento de Cristal Azul](https://youtu.be/ddm7N-O3k3s)
+
+## 9. Pruebas realizadas
+
+Se realizaron pruebas de:
+
+- Recepción de solicitudes mediante Webhook.
+- Creación de registros en Airtable.
+- Generación de respuestas con Google Gemini AI.
+- Actualización de estados.
+- Aprobación humana.
+- Envío de correos mediante Gmail.
+- Confirmación de recepción del correo electrónico.
+
+## 10. Mejoras pendientes
+
+- Ampliar el manejo automático y registro de errores.
+- Incorporar validaciones para evitar envíos duplicados.
+- Mejorar las notificaciones ante fallos de procesamiento.
+
+## 11. Proyecto académico
+
+**Proyecto:** Cristal Azul  
+**Entrega:** Ecosistema de Automatización IA Autónomo para Negocios  
+**Orquestador:** Make  
+**Base de datos:** Airtable  
+**Inteligencia artificial:** Google Gemini AI  
+**Comunicación:** Gmail
+
+
