@@ -26,3 +26,6 @@ El sistema utiliza Make, Airtable, Google Gemini AI y Gmail para recibir solicit
 5. Estado actualizado a «Procesado por IA».
 
 ### Escenario 2 – Aprobación humana y envío
+## Video demostrativo
+
+[Ver demostración del funcionamiento de Cristal Azul en YouTube](https://youtu.be/ddm7N-O3k3s)
